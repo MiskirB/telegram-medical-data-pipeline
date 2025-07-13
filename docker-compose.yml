@@ -1,4 +1,5 @@
-version: "3.9"
+# docker-compose.yml
+
 services:
   db:
     image: postgres:15
@@ -17,15 +18,8 @@ services:
     build: .
     volumes:
       - .:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=telegram_db
-      - DB_USER=youruser
-      - DB_PASSWORD=yourpass
-      - TELEGRAM_API_ID=your_api_id
-      - TELEGRAM_API_HASH=your_api_hash
+    env_file:
+      - .env
     depends_on:
       - db
 
