@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: youruser
+      POSTGRES_PASSWORD: yourpass
+      POSTGRES_DB: telegram_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=telegram_db
+      - DB_USER=youruser
+      - DB_PASSWORD=yourpass
+      - TELEGRAM_API_ID=your_api_id
+      - TELEGRAM_API_HASH=your_api_hash
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
