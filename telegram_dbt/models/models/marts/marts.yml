@@ -1,0 +1,35 @@
+# models/marts/marts.yml
+
+version: 2
+
+models:
+  - name: dim_channels
+    description: Dimension table with one row per Telegram channel
+    columns:
+      - name: channel_name
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_dates
+    description: Calendar dimension for temporal joins
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_messages
+    description: Fact table containing one row per message, with metrics and foreign keys
+    columns:
+      - name: id
+        description: Unique message ID
+        tests:
+          - not_null
+          - unique
+      - name: message_date
+        tests:
+          - not_null
+      - name: channel_name
+        tests:
+          - not_null

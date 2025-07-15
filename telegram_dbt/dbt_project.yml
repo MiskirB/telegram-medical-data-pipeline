@@ -1,0 +1,14 @@
+# telegram_dbt/dbt_project.yml
+
+name: "telegram_dbt"
+version: "1.0"
+config-version: 2
+
+profile: "telegram_dbt"
+
+model-paths: ["models"]
+
+models:
+  telegram_dbt:
+    staging:
+      materialized: view
